@@ -1,0 +1,397 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Role {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: RolesEnum!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum RolesEnum {
+  ADMIN
+  USER
+}
+
+type User {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  userName: String
+  email: String
+  lastLogin: DateTime
+  role: Role
+}
+
+type CustomUserDTO {
+  node: [User!]
+  totalCount: Float
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+type UserConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [User!]!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type UserAggregateGroupBy {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  userName: String
+  email: String
+  lastLogin: DateTime
+}
+
+type UserCountAggregate {
+  id: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
+  userName: Int
+  email: Int
+  lastLogin: Int
+}
+
+type UserMinAggregate {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  userName: String
+  email: String
+  lastLogin: DateTime
+}
+
+type UserMaxAggregate {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  userName: String
+  email: String
+  lastLogin: DateTime
+}
+
+type AuthDTO {
+  user: User!
+  token: String!
+}
+
+type TokenValidType {
+  valid: Boolean!
+}
+
+type RoleConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [Role!]!
+}
+
+type RoleAggregateGroupBy {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: RolesEnum
+}
+
+type RoleCountAggregate {
+  id: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
+  name: Int
+}
+
+type RoleMinAggregate {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: RolesEnum
+}
+
+type RoleMaxAggregate {
+  id: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: RolesEnum
+}
+
+type Query {
+  isTokenValid(token: String!): TokenValidType!
+  me: User!
+  findAllUser(pagination: PaginationInput, sorting: SortOptionsFilterUser): CustomUserDTO!
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): User
+  users(
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to filter the records returned."""
+    filter: UserFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [UserSort!]! = []
+  ): UserConnection!
+  role(
+    """The id of the record to find."""
+    id: ID!
+  ): Role
+  roles(
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to filter the records returned."""
+    filter: RoleFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [RoleSort!]! = []
+  ): RoleConnection!
+}
+
+input PaginationInput {
+  perPage: Int!
+  page: Int!
+}
+
+input SortOptionsFilterUser {
+  field: String
+  direction: InputDirectionSortingEnum
+}
+
+enum InputDirectionSortingEnum {
+  ASC
+  DESC
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+input UserFilter {
+  and: [UserFilter!]
+  or: [UserFilter!]
+  id: IDFilterComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  userName: StringFieldComparison
+  email: StringFieldComparison
+  lastLogin: DateFieldComparison
+  role: UserFilterRoleFilter
+}
+
+input IDFilterComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: ID
+  neq: ID
+  gt: ID
+  gte: ID
+  lt: ID
+  lte: ID
+  like: ID
+  notLike: ID
+  iLike: ID
+  notILike: ID
+  in: [ID!]
+  notIn: [ID!]
+}
+
+input DateFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: DateTime
+  neq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  between: DateFieldComparisonBetween
+  notBetween: DateFieldComparisonBetween
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+input StringFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: String
+  neq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  like: String
+  notLike: String
+  iLike: String
+  notILike: String
+  in: [String!]
+  notIn: [String!]
+}
+
+input UserFilterRoleFilter {
+  and: [UserFilterRoleFilter!]
+  or: [UserFilterRoleFilter!]
+  id: IDFilterComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  name: RolesEnumFilterComparison
+}
+
+input RolesEnumFilterComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: RolesEnum
+  neq: RolesEnum
+  gt: RolesEnum
+  gte: RolesEnum
+  lt: RolesEnum
+  lte: RolesEnum
+  like: RolesEnum
+  notLike: RolesEnum
+  iLike: RolesEnum
+  notILike: RolesEnum
+  in: [RolesEnum!]
+  notIn: [RolesEnum!]
+}
+
+input UserSort {
+  field: UserSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  id
+  createdAt
+  updatedAt
+  deletedAt
+  userName
+  email
+  lastLogin
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input RoleFilter {
+  and: [RoleFilter!]
+  or: [RoleFilter!]
+  id: IDFilterComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  name: RolesEnumFilterComparison
+}
+
+input RoleSort {
+  field: RoleSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum RoleSortFields {
+  id
+  createdAt
+  updatedAt
+  deletedAt
+  name
+}
+
+type Mutation {
+  authenticated(data: AuthInput!): AuthDTO!
+  createOneUser(data: CreateUserInput): User!
+  updateOneUser(id: String!, data: UpdateUserInput): User!
+  deleteOneUser(id: String!): String!
+  setRoleOnUser(input: SetRoleOnUserInput!): User!
+  removeRoleFromUser(input: RemoveRoleFromUserInput!): User!
+}
+
+input AuthInput {
+  userName: String
+  email: String
+  password: String!
+}
+
+input CreateUserInput {
+  roles: [RoleInput!]!
+  email: String!
+  password: String!
+}
+
+input RoleInput {
+  id: String!
+  name: RolesEnum!
+}
+
+input UpdateUserInput {
+  roles: [RoleInput!]
+  email: String
+  password: String
+  id: ID
+}
+
+input SetRoleOnUserInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveRoleFromUserInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
